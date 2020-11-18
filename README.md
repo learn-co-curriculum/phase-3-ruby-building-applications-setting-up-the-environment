@@ -1,4 +1,4 @@
-# Setting up an Application's Environment
+# Setting up an Application Environment
 
 ## Learning Goals
 
