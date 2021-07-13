@@ -1,47 +1,48 @@
-# Setting up the Application Environment
+# Setting up an Application Environment
 
 ## Learning Goals
 
 - Recognize common Ruby application conventions
-- Understand how to set up a bin file to run a Ruby application
+- Understand how to set up a `bin` file to run a Ruby application
 - Understand how to set up an environment file to load things when a Ruby
   application starts
 
 ## Introduction
 
-Most Ruby applications we'll be dealing with in this course will use the command
-line. Don't be fooled though - command-line apps may seem simple and less fancy
+Most Ruby applications we'll be dealing with in this phase will use the command
+line. Don't be fooled though — command-line apps may seem simple and less fancy
 than a fully developed computer program with a graphical user interface, but CLI
 apps can be just as robust and powerful, if not more so.
 
-For the most part, Ruby CLI apps tend to start the same way - typing `ruby`
+For the most part, Ruby CLI apps tend to start the same way — typing `ruby`
 followed by a relative path to a Ruby file. In a complex application, though,
-which file should be run? In addition to this, when run, how to we ensure all
-our necessary files are required?
+which file should be run? In addition to this, when run the file, how to we
+ensure all our necessary files are required?
 
 There are two common conventions we're going to look at in this lesson that
-address these questions: using a run file and setting up the environment in
+address these questions: using a "run" file, and setting up the environment in
 `environment.rb`.
 
 ## Using a Run File
 
-In the previous lesson, we had `lib/garden.rb` and `lib/plant.rb`, and were able
-to require `plant.rb` from inside `garden.rb`. This allowed us to run `ruby
-lib/garden.rb` without error. Doing it this way works, but is a little sloppy.
-The `lib/garden.rb` file should only contain the `Garden` class. It doesn't make
-sense to also make it the file that _runs_ everything.
+In the previous lesson, we had Ruby code in two separate files, `lib/garden.rb`
+and `lib/plant.rb`. Were able to require `plant.rb` from inside `garden.rb`.
+This allowed us to run `ruby lib/garden.rb` without error. Doing it this way
+works, but is a little sloppy. The `lib/garden.rb` file should only contain the
+`Garden` class. It doesn't make sense to also make it the file that _runs_
+everything.
 
-Running an application is its own event and deserves its own file. This way, we
-have a single place to start the application every time.
+Running an application is its own process and deserves its own file. This way,
+we have a single place to start the application every time.
 
-Sticking to conventions, a run file has already been created in this example -
-`bin/run` - and looks like the following:
+Sticking to conventions, a run file has already been created in this example,
+`bin/run`, that has the following code:
 
 ```ruby
 #!/usr/bin/env ruby
 
-require_relative '../lib/garden.rb'
-require_relative '../lib/plant.rb'
+require_relative '../lib/garden'
+require_relative '../lib/plant'
 
 lawn = Garden.new(name: 'Front Lawn')
 
@@ -57,24 +58,25 @@ p lawn.plants
 With the run file set up, we can run `ruby bin/run` and see the run
 file in action. Let's step through this file briefly.
 
-#### The Shebang Line
+### The Shebang Line
 
-The very first line of `bin/run` can be broadly ignored for our
-purposes. It is known as a [_shebang_][] and is used to indicate what
-interpreter should be used to read the code in this file. On Unix systems, with
-the proper configuration, this file can run without having to write
-`ruby` before it in the command line. Don't worry if this does not work for you,
-though. We can still run the file using `ruby bin/run`. The shebang
-is just an optional line that makes this file more functional.
+The very first line of `bin/run` can be broadly ignored for our purposes. It is
+known as a [_shebang_][] and is used to indicate what interpreter should be used
+to read the code in this file. On Unix systems, with the proper configuration,
+this file can run without having to write `ruby` before it in the command line.
+Don't worry if this does not work for you, though. We can still run the file
+using `ruby bin/run`. The shebang is just an optional line that makes this file
+more functional.
 
-Notice that the file _doesn't_ have `.rb`. This file is designed to be an
-executable and the lack of file extension indicates this. Some runner files will
-still have the `.rb` extension - they may not be meant as an executable file, but
-are still designed to be the point of entry into the application.
+Notice that the file _doesn't_ have the `.rb` extension. This file is designed
+to be an executable and the lack of file extension indicates this. Some runner
+files will still have the `.rb` extension — they may not be meant as an
+executable file, but are still designed to be the point of entry into the
+application.
 
 [_shebang_]: https://en.wikipedia.org/wiki/Shebang_(Unix)
 
-#### Loading Files and Running Code
+### Loading Files and Running Code
 
 Run files act in some way to start an application. Before that, though, they
 typically need to load up any necessary files. We can see this in
@@ -82,12 +84,12 @@ typically need to load up any necessary files. We can see this in
 both our local files located in `lib`:
 
 ```ruby
-require_relative '../lib/garden.rb'
-require_relative '../lib/plant.rb'
+require_relative '../lib/garden'
+require_relative '../lib/plant'
 ```
 
 With `Garden` and `Plant` loaded, we can proceed to run our very simple
-application - relating a few `Plant` instances to a `Garden` instance.
+application — relating a few `Plant` instances to a `Garden` instance.
 
 ```ruby
 lawn = Garden.new(name: 'Front Lawn')
@@ -127,7 +129,7 @@ classes, we only need to modify a single file, and any place in our application
 requiring that file will automatically receive the updates!
 
 In Ruby frameworks like Rails, this file is called `environment.rb` and is
-located in the `config` folder. We'll follow this convention - a file with this
+located in the `config` folder. We'll follow this convention — a file with this
 name already exists, all we need to do is copy the `require_relative` statements
 from `bin/run` to `config/environment.rb`, then replace them,
 requiring `config/environment.rb` in our run file.
@@ -135,8 +137,8 @@ requiring `config/environment.rb` in our run file.
 For `config/environment.rb`, that would be:
 
 ```ruby
-require_relative '../lib/garden.rb'
-require_relative '../lib/plant.rb'
+require_relative '../lib/garden'
+require_relative '../lib/plant'
 ```
 
 And for `bin/run`:
@@ -144,7 +146,7 @@ And for `bin/run`:
 ```ruby
 #!/usr/bin/env ruby
 
-require_relative '../config/environment.rb'
+require_relative '../config/environment'
 
 lawn = Garden.new(name: 'Front Lawn')
 
