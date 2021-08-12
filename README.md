@@ -16,7 +16,7 @@ apps can be just as robust and powerful, if not more so.
 
 For the most part, Ruby CLI apps tend to start the same way — typing `ruby`
 followed by a relative path to a Ruby file. In a complex application, though,
-which file should be run? In addition to this, when run the file, how to we
+which file should be run? In addition to this, when we run the file, how do we
 ensure all our necessary files are required?
 
 There are two common conventions we're going to look at in this lesson that
@@ -26,7 +26,7 @@ address these questions: using a "run" file, and setting up the environment in
 ## Using a Run File
 
 In the previous lesson, we had Ruby code in two separate files, `lib/garden.rb`
-and `lib/plant.rb`. Were able to require `plant.rb` from inside `garden.rb`.
+and `lib/plant.rb`. We were able to require `plant.rb` from inside `garden.rb`.
 This allowed us to run `ruby lib/garden.rb` without error. Doing it this way
 works, but is a little sloppy. The `lib/garden.rb` file should only contain the
 `Garden` class. It doesn't make sense to also make it the file that _runs_
