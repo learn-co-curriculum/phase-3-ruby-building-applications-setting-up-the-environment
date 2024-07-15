@@ -1,7 +1,5 @@
-#!/usr/bin/env ruby 
-
-require_relative '../lib/garden.rb'
-require_relative '../lib/plant.rb'
+#!/usr/bin/env ruby
+require_relative '../config/environment'
 
 lawn = Garden.new(name: 'Front Lawn')
 
